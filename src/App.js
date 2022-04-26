@@ -23,18 +23,25 @@ const DUMMY_EXPENSES=[
     date: new Date(2021, 5, 12),
   }
 ];
+
+
+
 const App=() => {
+  const [isonecomponent,setisonecomponent]=useState(true);
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
 const addExpenseHandler = (expense) => {
       setExpenses((preExpenses)=>{
+          if(expense.title.length>1){
+           setisonecomponent(false);
+          }
         return [expense, ...preExpenses]
       });
 };
-
+ 
   return (
     <div>
-      <NewExpense OnAddExpense={addExpenseHandler}/>
-      <Expenses expenses={expenses}/>
+      {isonecomponent && < NewExpense OnAddExpense={addExpenseHandler}/>}
+      {!isonecomponent && <Expenses expenses={expenses}/>}
     </div>
   );
 }
